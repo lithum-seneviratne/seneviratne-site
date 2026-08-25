@@ -13,19 +13,19 @@ const posts = (await getCollection('blog'))
 const personSchema = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: 'Your Name',
-  jobTitle: 'Your Job Title',
-  url: 'https://example.com',
+  name: 'Lithum Seneviratne',
+  jobTitle: 'Undergraduate Nuclear Engineering Student',
+  url: 'lithum.seneviratne.me',
   sameAs: [
-    'https://github.com/your-username',
-    'https://linkedin.com/in/your-profile',
+    'https://github.com/lithum-seneviratne',
+    'https://www.linkedin.com/in/lithum-seneviratne-9599472a5/',
   ],
   // Escape < so no value can ever close the inline <script> tag.
 }).replace(/</g, '\\u003c');
 ---
 
 <Layout
-  title="Palette — Your Name"
+  title="Lithum Seneviratne"
   description="A short tagline describing you and what you write about."
   canonicalPath="/"
 >

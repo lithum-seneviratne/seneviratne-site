@@ -16,6 +16,6 @@
  * needs to know what "no choice saved" resolves to.
  */
 export const DEFAULT_PALETTE = {
-  dark: 'vesper',
+  dark: 'oxocarbon',
   light: 'rose-pine-dawn',
 } as const;

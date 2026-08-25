@@ -9,7 +9,7 @@ export async function GET(context: APIContext) {
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
   return rss({
-    title: 'Palette — Your Name',
+    title: 'Palette — Lithum Seneviratne',
     description:
       'A short description of what you write about.',
     site: context.site!,
