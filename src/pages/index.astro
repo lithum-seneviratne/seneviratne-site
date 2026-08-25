@@ -1,58 +1,17 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../components/Layout.astro';
-import TypedLede from '../components/TypedLede.astro';
-import SkillsMarquee from '../components/SkillsMarquee.astro';
-import { formatPostDate, postSlug } from '../lib/posts';
 
-const posts = (await getCollection('blog'))
-  .filter((post) => !post.data.draft)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
-
-const personSchema = JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: 'Lithum Seneviratne',
-  jobTitle: 'Undergraduate Nuclear Engineering Student',
-  url: 'lithum.seneviratne.me',
-  sameAs: [
-    'https://github.com/lithum-seneviratne',
-    'https://www.linkedin.com/in/lithum-seneviratne-9599472a5/',
-  ],
-  // Escape < so no value can ever close the inline <script> tag.
-}).replace(/</g, '\\u003c');
 ---
 
-<Layout
-  title="Lithum Seneviratne"
-  description="This website is unfinished!"
-  canonicalPath="/"
->
-  <script type="application/ld+json" is:inline set:html={personSchema} />
-  <main class="content-shell">
-    <div class="page-hero">
-      <h1 class="visually-hidden">Home</h1>
-      <TypedLede text="This website is unfinshed! HI NOELLE! IF YOU MADE IT HERE SEND ME '5142'" />
-    </div>
-
-    <section class="section" aria-label="Recent posts">
-      {posts.length === 0 ? (
-        <p class="empty-note">No posts yet, check back soon.</p>
-      ) : (
-        <nav class="commit-tree" aria-label="Recent posts">
-          <a class="commit-tree-head" href="/blog/" title="All posts">Blog</a>
-          {posts.map((post) => (
-            <a href={`/blog/${postSlug(post)}/`}>
-              {post.data.title}
-              <span class="commit-tree-date">{formatPostDate(post.data.date)}</span>
-            </a>
-          ))}
-          <a href="/about/">About</a>
-        </nav>
-      )}
-    </section>
-
-    <SkillsMarquee />
-  </main>
-</Layout>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+	</head>
+	<body>
+		<h1>Astro</h1>
+	</body>
+</html>
