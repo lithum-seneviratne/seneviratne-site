@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+.horizontal_list {
+    list-style-type: none;
+    align-items: center;
+    display: flex;
+    gap: 20px;
+    grid-column: 2;
+    justify-self: center;
+}
+
+.nav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    color: white;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.nav > div {
+    grid-column: 3;
+    justify-self: end;
+}
+
+.header {
+    width: 100%;
+    padding-block: 20px;
+    padding-inline: 24px;
+}

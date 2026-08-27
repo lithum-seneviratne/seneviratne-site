@@ -1,0 +1,39 @@
+---
+import '../styles/global.css'
+
+const { pageTitle = 'Title' } = Astro.props;
+
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{pageTitle}</title>
+	</head>
+	<body class="bg-auto bg-zinc-800">
+		<header class="header bg-auto bg-zinc-900">
+
+			<nav class="nav">
+				<img src="/favicon.ico">
+
+				<ul class="horizontal_list">
+					<li><a href="/">Home</a></li>
+					<li><a href="/about">About</a></li>
+					<li><a href="/projects">Projects</a></li>
+					<li><a href="/resume">Resume</a></li>
+				</ul>
+
+				<div>
+					<a href="/login" class="">Login</a>
+				</div>
+				
+			</nav>
+
+		</header>
+		<slot />
+	</body>
+</html>
