@@ -5,8 +5,13 @@ const pageTitle = "Login";
 ---
 
 <Layout pageTitle={pageTitle}>
-	<form method="POST" action="/api/login" class="">
-        <input type="password" name="password" required autofocus class="border border-white px-2 py-2 text-white"/>
-        <button type="submit" class="border-2 border-white rounded-2xl px-2 py-2 text-white">Login In</button>
-    </form>
+    <main class="fixed inset-0 flex items-center justify-center -z-9">
+        <form method="POST" action="/api/login" class="loginForm flex flex-col items-center gap-2 p-6 rounded-3xl overflow-hidden">
+            <h1 class="text-4xl text-white py-6">Dashboard Login</h1>
+            <br>
+            <input type="password" name="password" required autofocus class="loginButton"/>
+            <br>
+            <button type="submit" class="loginButton">Submit</button>
+        </form>
+    </main>
 </Layout>
