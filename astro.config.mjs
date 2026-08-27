@@ -11,5 +11,12 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  adapter: netlify()
+  adapter: netlify({
+    edgeMiddleware: false,
+    devFeatures: {
+      images: true,
+      environmentVariables: false,
+      edgeFunctions: false
+    }
+  })
 });

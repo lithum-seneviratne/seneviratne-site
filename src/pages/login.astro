@@ -5,5 +5,8 @@ const pageTitle = "Login";
 ---
 
 <Layout pageTitle={pageTitle}>
-	
+	<form method="POST" action="/api/login" class="">
+        <input type="password" name="password" required autofocus class="border border-white px-2 py-2 text-white"/>
+        <button type="submit" class="border-2 border-white rounded-2xl px-2 py-2 text-white">Login In</button>
+    </form>
 </Layout>
