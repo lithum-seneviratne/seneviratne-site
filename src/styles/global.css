@@ -1,5 +1,37 @@
 @import "tailwindcss";
 
+@theme {
+    --font-sans: "IBM Plex Sans", sans-serif;
+    --font-mono: "IBM Plex Mono", monospace;
+    --color-void: #0D1117;
+    --color-panel: #1A2231;
+    --color-panel-raised: #232C3D;
+    --color-edge: #26303F;
+    --color-edge-strong: #354254;
+
+    --color-lamp: #E0A44A;
+    --color-lamp-hover: #EDB868;
+
+    --color-brand: #0B4796;
+    --color-brand-hover: #0F58B8;
+
+    --color-ink: #E6EBF2;
+    --color-ink-dim: #A6B0BE;
+    --color-ink-faint: #7A8593;
+
+    --color-signal-ok: #4FB07A;
+    --color-signal-bad: #E5484D;
+}
+
+@custom-variant hover (&:hover);
+@custom-variant group-hover (.group:hover &);
+
+@layer base {
+    html, body {
+        font-family: var(--font-sans);
+    }
+}
+
 .horizontal_list {
     list-style-type: none;
     align-items: center;
@@ -13,7 +45,6 @@
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    color: white;
     width: 100%;
     max-width: 100%;
     margin: 0 auto;
@@ -26,25 +57,16 @@
 
 .header {
     width: 100%;
-    padding-block: 20px;
+    padding-block: 10px;
     padding-inline: 24px;
     font-family: var(--font-mono);
     font-size: x-large;
-}
-
-.loginButton {
-    border: 2px solid white;
-    border-radius: calc(infinity * 1px);
-    padding-inline: 4px;
-    padding-bottom: 2px;
-    color: white;
 }
 
 .loginForm {
     position: relative;
     z-index: 10;
 }
-
 
 .loginForm::before {
     content: "";
@@ -55,14 +77,8 @@
     left: -16px;
     right: -16px;
   
-    background-color: gray;
+    background-color: var(--color-panel);
     background-size: auto;
     
     z-index: -10; 
-
-}
-
-@theme {
-    --font-sans: "IBM-Plex-Sans", sans-serif;
-    --font-mono: "IBM-Plex-Mono", monospace;
 }

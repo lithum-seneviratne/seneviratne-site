@@ -7,11 +7,12 @@ const pageTitle = "Login";
 <Layout pageTitle={pageTitle}>
     <main class="fixed inset-0 flex items-center justify-center -z-9">
         <form method="POST" action="/api/login" class="loginForm flex flex-col items-center gap-2 p-6 rounded-3xl overflow-hidden">
-            <h1 class="text-4xl text-white py-6">Dashboard Login</h1>
+            <h1 class="text-4xl text-ink py-2">Login</h1>
             <br>
-            <input type="password" name="password" required autofocus class="loginButton"/>
+            <input type="password" name="password" required autofocus class="mt-4 ml-2 inline-block rounded-md border border-edge-strong px-4 py-2 text-sm hover:border-lamp focus:outline-none focus:border-lamp-hover"/>
             <br>
-            <button type="submit" class="loginButton">Submit</button>
+            <button type="submit" class="mt-4 ml-2 inline-block rounded-md border border-edge-strong
+            px-4 py-2 text-sm hover:border-lamp hover:text-void hover:bg-lamp focus:outline-2 outline-offset-2 focus:outline-lamp-hover focus:bg-lamp-hover">Submit</button>
         </form>
     </main>
 </Layout>

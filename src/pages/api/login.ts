@@ -6,8 +6,6 @@ import { createSessionToken } from "../../lib/auth";
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     const form = await request.formData();
     const password = form.get('password');
-    console.log('got:', JSON.stringify(password));
-    console.log('expected', JSON.stringify(import.meta.env.SITE_PASSWORD));
 
 if (password === import.meta.env.SITE_PASSWORD) {
     cookies.set('session', createSessionToken(), {
