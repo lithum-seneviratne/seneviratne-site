@@ -1,18 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Slabo+13px&display=swap');
-
 @import "tailwindcss";
-
-.slabo-13px-regular {
-  font-family: "Slabo 13px", serif;
-  font-weight: 400;
-  font-style: normal;
-}
 
 .horizontal_list {
     list-style-type: none;
     align-items: center;
     display: flex;
-    gap: 20px;
+    gap: 40px;
     grid-column: 2;
     justify-self: center;
 }
@@ -36,6 +28,8 @@
     width: 100%;
     padding-block: 20px;
     padding-inline: 24px;
+    font-family: var(--font-mono);
+    font-size: x-large;
 }
 
 .loginButton {
@@ -68,3 +62,7 @@
 
 }
 
+@theme {
+    --font-sans: "IBM-Plex-Sans", sans-serif;
+    --font-mono: "IBM-Plex-Mono", monospace;
+}

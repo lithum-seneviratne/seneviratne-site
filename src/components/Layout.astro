@@ -1,5 +1,9 @@
 ---
 import '../styles/global.css'
+import '@fontsource/ibm-plex-sans/400.css';
+import '@fontsource/ibm-plex-sans/500.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/600.css';
 
 const { pageTitle = 'Title' } = Astro.props;
 
@@ -9,7 +13,6 @@ const { pageTitle = 'Title' } = Astro.props;
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{pageTitle}</title>
@@ -18,7 +21,7 @@ const { pageTitle = 'Title' } = Astro.props;
 		<header class="header bg-auto bg-zinc-900">
 
 			<nav class="nav">
-				<img src="/favicon.ico">
+				<img src="/favicon.svg" width="75" height="75">
 
 				<ul class="horizontal_list">
 					<li><a href="/">Home</a></li>
