@@ -4,8 +4,9 @@ import '@fontsource/ibm-plex-sans/400.css';
 import '@fontsource/ibm-plex-sans/500.css';
 import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/600.css';
+import ClientRouter from 'astro/components/ClientRouter.astro';
 
-const { pageTitle = 'Title' } = Astro.props;
+const { pageTitle = 'Title', hideHeader = false, hideFooter = false } = Astro.props;
 
 const normalize = (path: string) => path.replace(/\/+$/, '') || '/';
 const currentPath = normalize(Astro.url.pathname);
@@ -14,33 +15,36 @@ const isActive = (href: string) => currentPath === normalize(href);
 
 <html lang="en">
 	<head>
+		<ClientRouter />
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{pageTitle}</title>
 	</head>
-	<body class="flex flex-col bg-auto bg-void text-ink h-full min-h-screen m-0">
-		<header class="bg-auto bg-panel w-full py-5 px-5 font-mono text-2xl">
+	
+	<body class="flex flex-col bg-void text-ink h-full min-h-screen m-0">
+		{!hideHeader && (
+			<header class="bg-panel w-full py-5 px-5 font-mono text-xl">
+				<nav class="flex items-center justify-between w-full max-w-full m-0">
+					<a href="/" class="justify-start"><img src="/favicon.svg" width="50" height="50"></a>
+					
+					<ul class="flex list-none items-center gap-10 justify-self-center">
+						<li><a href="/" class:list={["hover:text-ink-dim", { 'text-lamp hover:text-lamp-hover': isActive('/') }]}>Home</a></li>
+						<li><a href="/about" class:list={["hover:text-ink-dim", { 'text-lamp hover:text-lamp-hover': isActive('/about') }]}>About</a></li>
+						<li><a href="/projects" class:list={["hover:text-ink-dim", { 'text-lamp hover:text-lamp-hover': isActive('/projects') }]}>Projects</a></li>
+						<li><a href="/resume" class:list={["hover:text-ink-dim", { 'text-lamp hover:text-lamp-hover': isActive('/resume') }]}>Resume</a></li>
+						<li><a href="/contact" class:list={["hover:text-ink-dim", { 'text-lamp hover:text-lamp-hover': isActive('/contact') }]}>Contact</a></li>
+					</ul>
+					
+					<div></div>
+				</nav>
+			</header>
+		)}
 
-			<nav class="grid grid-cols-3 items-center w-full max-w-full m-0">
-				<a href="/"><img src="/favicon.svg" width="50" height="50"></a>
-				
-				<ul class="flex list-none items-center gap-10 justify-self-center">
-					<li><a href="/" class:list={["hover:text-ink-dim", { 'text-lamp hover:text-lamp-hover': isActive('/') }]}>Home</a></li>
-					<li><a href="/about" class:list={["hover:text-ink-dim", { 'text-lamp hover:text-lamp-hover': isActive('/about') }]}>About</a></li>
-					<li><a href="/projects" class:list={["hover:text-ink-dim", { 'text-lamp hover:text-lamp-hover': isActive('/projects') }]}>Projects</a></li>
-					<li><a href="/resume" class:list={["hover:text-ink-dim", { 'text-lamp hover:text-lamp-hover': isActive('/resume') }]}>Resume</a></li>
-					<li><a href="/contact" class:list={["hover:text-ink-dim", { 'text-lamp hover:text-lamp-hover': isActive('/contact') }]}>Contact</a></li>
-				</ul>
-
-
-				<a href="/admin" class:list={["justify-self-end hover:text-ink-dim", { 'text-lamp hover:text-lamp-hover': isActive('/admin') }]}>Dashboard</a>
-				
-			</nav>
-
-		</header>
 		<slot />
+
+	  {!hideFooter && (
 		<footer class="flex flex-col bg-panel items-center justify-around w-full py-10 text-sm text-ink-dim font-mono">
 			<div class="flex items-center gap-8">
 				<a href="/" class="font-medium text-ink-dim hover:text-ink-faint transition-all">
@@ -80,5 +84,7 @@ const isActive = (href: string) => currentPath === normalize(href);
 			</div>
 			<p class="mt-8 text-center">Copyright © 2026 <a href="https://seneviratne.me">Lithum Seneviratne</a>. All rights reservered.</p>
 		</footer>
+	  )}
+		
 	</body>
 </html>

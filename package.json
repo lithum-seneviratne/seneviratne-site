@@ -24,6 +24,11 @@
     "esbuild": true
   },
   "devDependencies": {
-    "@types/three": "^0.185.4"
+    "@astrojs/check": "^0.9.10",
+    "@types/pngjs": "^6.0.5",
+    "@types/three": "^0.185.4",
+    "pngjs": "^7.0.0",
+    "thumbhash": "^0.1.1",
+    "typescript": "^6.0.3"
   }
 }

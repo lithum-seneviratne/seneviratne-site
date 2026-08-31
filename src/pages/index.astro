@@ -1,11 +1,277 @@
 ---
+export const prerender = false
+
 import Layout from "../components/Layout.astro";
+import { getImage } from "astro:assets";
+import M27 from "../assets/Dumbbell Nebula.png"
 
 const pageTitle = "Home";
+const thumbHashBase64 = "CAgCBIAK2CaHioiAjoXoVl9v5g==";
+
+const heroImage = await getImage({ src: M27, format: "webp", width: M27.width });
+
+const isFirstVisit = !Astro.cookies.get('visited');
+if (isFirstVisit) {
+	Astro.cookies.set('visited', 'true', {
+		path: '/',
+		httpOnly: true,
+		secure: import.meta.env.PROD,
+		sameSite: 'lax',
+		maxAge: 60 * 60 * 24 * 365,
+	});
+}
 ---
 
-<Layout pageTitle={pageTitle}>
-	<main class="flex grow flex-col justify-center items-center text-ink-dim min-h-screen">
-        <h1 class="text-ink text-6xl font-mono">Lithum Seneviratne</h1>
+<Layout pageTitle={pageTitle} hideHeader={isFirstVisit} hideFooter={isFirstVisit} overlayChrome={true}>
+	<main class="flex min-h-screen grow flex-col justify-center items-center text-ink-dim">
+		<section class="relative h-screen w-full overflow-hidden bg-void">
+
+			<img
+				id="hero-image"
+				data-placeholder-hash={thumbHashBase64}
+				data-src={heroImage.src}
+				src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'/>"
+				width={M27.width}
+				height={M27.height}
+				alt="The Western Veil Nebula, NGC 6960"
+				fetchpriority="high"
+				class="block h-full w-full object-cover"
+			/>
+
+			<div class="pointer-events-none absolute inset-x-0 top-0 h-5 md:h-3 bg-linear-to-b from-panel to-transparent"></div>
+			<div class="pointer-events-none absolute inset-x-0 bottom-0 h-5 md:h-3 bg-linear-to-t from-void to-transparent"></div>
+
+			<div class="absolute inset-0 z-10 flex flex-col justify-center items-center">
+				<h1 class="text-ink text-6xl font-medium drop-shadow-md -mt-5 font-mono">Lithum Seneviratne</h1>
+				<p class="text-ink-dim mt-3 text-2xl font-light drop-shadow-sm"></p>
+				<div class="flex flex-row w-full justify-center">
+					<a class="bg-panel text-ink-dim border border-ink-dim mt-90 w-fit rounded-md px-4 py-2 text-2xl font-mono cursor-pointer shadow-md transition-transform hover:scale-105 hover:bg-lamp-hover hover:border-void hover:text-void" href="/resume">Resume</a>
+					<a class="bg-panel text-ink-dim border border-ink-dim mt-90 w-fit rounded-md px-4 py-2 text-2xl font-mono cursor-pointer shadow-md transition-transform hover:scale-105 hover:bg-lamp-hover hover:border-void hover:text-void" href="/projects">Projects</a>
+				</div>
+			</div>
+		</section>
+		<section class="relative flex flex-row items-center justify-center h-screen w-full overflow-hidden bg-void">
+			
+			<div class="bg-panel-raised block max-w-sm border border-default rounded-md shadow-xs overflow-hidden mx-5">
+				<a href="#" class="block overflow-hidden">
+					<img class="rounded-t-md w-full" src="/src/assets/autoblockblastdemo1.png" alt="" />
+				</a>
+				<div class="p-6 text-center">
+					<a href="#">
+						<h5 class="mt-3 mb-6 text-2xl font-semibold tracking-tight text-heading">Autonomous Mobile Game-Playing System</h5>
+					</a>
+					<a href="#" class="inline-flex items-center rounded-md text-ink-dim bg-panel border border-ink-dim hover:bg-lamp-hover hover:text-void hover:border-void hover:scale-105 transition-transform focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+						See more
+						<svg class="w-4 h-4 ms-1.5 rtl:rotate-180 -me-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/></svg>
+					</a>
+				</div>
+			</div>
+			<div class="bg-panel-raised block max-w-sm border border-default rounded-md shadow-xs overflow-hidden mx-5">
+				<a href="#" class="block overflow-hidden">
+					<img class="rounded-t-md w-full" src="/src/assets/autoblockblastdemo1.png" alt="" />
+				</a>
+				<div class="p-6 text-center">
+					<a href="#">
+						<h5 class="mt-3 mb-6 text-2xl font-semibold tracking-tight text-heading">Autonomous Mobile Game-Playing System</h5>
+					</a>
+					<a href="#" class="inline-flex items-center rounded-md text-ink-dim bg-panel border border-ink-dim hover:bg-lamp-hover hover:text-void hover:border-void hover:scale-105 transition-transform focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+						See more
+						<svg class="w-4 h-4 ms-1.5 rtl:rotate-180 -me-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/></svg>
+					</a>
+				</div>
+			</div>
+			<div class="bg-panel-raised block max-w-sm border border-default rounded-md shadow-xs overflow-hidden mx-5">
+				<a href="#" class="block overflow-hidden">
+					<img class="rounded-t-md w-full" src="/src/assets/autoblockblastdemo1.png" alt="" />
+				</a>
+				<div class="p-6 text-center">
+					<a href="#">
+						<h5 class="mt-3 mb-6 text-2xl font-semibold tracking-tight text-heading">Autonomous Mobile Game-Playing System</h5>
+					</a>
+					<a href="#" class="inline-flex items-center rounded-md text-ink-dim bg-panel border border-ink-dim hover:bg-lamp-hover hover:text-void hover:border-void hover:scale-105 transition-transform focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+						See more
+						<svg class="w-4 h-4 ms-1.5 rtl:rotate-180 -me-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/></svg>
+					</a>
+				</div>
+			</div>
+
+		</section>
+		<section class="relative h-screen w-full overflow-hidden bg-void">
+			
+		</section>
 	</main>
 </Layout>
+
+<style>
+	#hero-image {
+		filter: blur(24px);
+		transform: scale(1.03);
+		transition: filter 0.5s ease-out, transform 0.5s ease-out;
+	}
+	#hero-image.loaded {
+		filter: blur(0);
+		transform: scale(1);
+	}
+</style>
+
+<script is:inline>
+	function thumbHashToDataURL(hash) {
+		const image = thumbHashToRGBA(hash);
+		return rgbaToDataURL(image.w, image.h, image.rgba);
+	}
+
+	function thumbHashToRGBA(hash) {
+		const { PI, min, max, cos, round } = Math;
+
+		const header24 = hash[0] | (hash[1] << 8) | (hash[2] << 16);
+		const header16 = hash[3] | (hash[4] << 8);
+		const l_dc = (header24 & 63) / 63;
+		const p_dc = ((header24 >> 6) & 63) / 31.5 - 1;
+		const q_dc = ((header24 >> 12) & 63) / 31.5 - 1;
+		const l_scale = ((header24 >> 18) & 31) / 31;
+		const hasAlpha = header24 >> 23;
+		const p_scale = ((header16 >> 3) & 63) / 63;
+		const q_scale = ((header16 >> 9) & 63) / 63;
+		const isLandscape = header16 >> 15;
+		const lx = max(3, isLandscape ? (hasAlpha ? 5 : 7) : header16 & 7);
+		const ly = max(3, isLandscape ? header16 & 7 : (hasAlpha ? 5 : 7));
+		const a_dc = hasAlpha ? (hash[5] & 15) / 15 : 1;
+		const a_scale = (hash[5] >> 4) / 15;
+
+		const ac_start = hasAlpha ? 6 : 5;
+		let ac_index = 0;
+		const decodeChannel = (nx, ny, scale) => {
+			const ac = [];
+			for (let cy = 0; cy < ny; cy++)
+				for (let cx = cy ? 0 : 1; cx * ny < nx * (ny - cy); cx++)
+					ac.push((((hash[ac_start + (ac_index >> 1)] >> ((ac_index++ & 1) << 2)) & 15) / 7.5 - 1) * scale);
+			return ac;
+		};
+		const l_ac = decodeChannel(lx, ly, l_scale);
+		const p_ac = decodeChannel(3, 3, p_scale * 1.25);
+		const q_ac = decodeChannel(3, 3, q_scale * 1.25);
+		const a_ac = hasAlpha && decodeChannel(5, 5, a_scale);
+
+		const ratio = thumbHashToApproximateAspectRatio(hash);
+		const w = round(ratio > 1 ? 32 : 32 * ratio);
+		const h = round(ratio > 1 ? 32 / ratio : 32);
+		const rgba = new Uint8Array(w * h * 4);
+		const fx = [];
+		const fy = [];
+		for (let y = 0, i = 0; y < h; y++) {
+			for (let x = 0; x < w; x++, i += 4) {
+				let l = l_dc, p = p_dc, q = q_dc, a = a_dc;
+
+				for (let cx = 0, n = max(lx, hasAlpha ? 5 : 3); cx < n; cx++)
+					fx[cx] = cos(PI / w * (x + 0.5) * cx);
+				for (let cy = 0, n = max(ly, hasAlpha ? 5 : 3); cy < n; cy++)
+					fy[cy] = cos(PI / h * (y + 0.5) * cy);
+
+				for (let cy = 0, j = 0; cy < ly; cy++)
+					for (let cx = cy ? 0 : 1, fy2 = fy[cy] * 2; cx * ly < lx * (ly - cy); cx++, j++)
+						l += l_ac[j] * fx[cx] * fy2;
+
+				for (let cy = 0, j = 0; cy < 3; cy++) {
+					for (let cx = cy ? 0 : 1, fy2 = fy[cy] * 2; cx < 3 - cy; cx++, j++) {
+						const f = fx[cx] * fy2;
+						p += p_ac[j] * f;
+						q += q_ac[j] * f;
+					}
+				}
+
+				if (hasAlpha)
+					for (let cy = 0, j = 0; cy < 5; cy++)
+						for (let cx = cy ? 0 : 1, fy2 = fy[cy] * 2; cx < 5 - cy; cx++, j++)
+							a += a_ac[j] * fx[cx] * fy2;
+
+				const b = l - 2 / 3 * p;
+				const r = (3 * l - b + q) / 2;
+				const g = r - q;
+				rgba[i] = max(0, 255 * min(1, r));
+				rgba[i + 1] = max(0, 255 * min(1, g));
+				rgba[i + 2] = max(0, 255 * min(1, b));
+				rgba[i + 3] = max(0, 255 * min(1, a));
+			}
+		}
+		return { w, h, rgba };
+	}
+
+	function thumbHashToApproximateAspectRatio(hash) {
+		const header = hash[3];
+		const hasAlpha = hash[2] & 0x80;
+		const isLandscape = hash[4] & 0x80;
+		const lx = isLandscape ? (hasAlpha ? 5 : 7) : header & 7;
+		const ly = isLandscape ? header & 7 : (hasAlpha ? 5 : 7);
+		return lx / ly;
+	}
+
+	function rgbaToDataURL(w, h, rgba) {
+		const row = w * 4 + 1;
+		const idat = 6 + h * (5 + row);
+		const bytes = [
+			137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82, 0, 0,
+			w >> 8, w & 255, 0, 0, h >> 8, h & 255, 8, 6, 0, 0, 0, 0, 0, 0, 0,
+			idat >>> 24, (idat >> 16) & 255, (idat >> 8) & 255, idat & 255,
+			73, 68, 65, 84, 120, 1
+		];
+		const table = [
+			0, 498536548, 997073096, 651767980, 1994146192, 1802195444, 1303535960,
+			1342533948, -306674912, -267414716, -690576408, -882789492, -1687895376,
+			-2032938284, -1609899400, -1111625188
+		];
+		let a = 1, b = 0;
+		for (let y = 0, i = 0, end = row - 1; y < h; y++, end += row - 1) {
+			bytes.push(y + 1 < h ? 0 : 1, row & 255, row >> 8, ~row & 255, (row >> 8) ^ 255, 0);
+			for (b = (b + a) % 65521; i < end; i++) {
+				const u = rgba[i] & 255;
+				bytes.push(u);
+				a = (a + u) % 65521;
+				b = (b + a) % 65521;
+			}
+		}
+		bytes.push(
+			b >> 8, b & 255, a >> 8, a & 255, 0, 0, 0, 0,
+			0, 0, 0, 0, 73, 69, 78, 68, 174, 66, 96, 130
+		);
+		for (const [start, end0] of [[12, 29], [37, 41 + idat]]) {
+			let c = ~0;
+			let end = end0;
+			for (let i = start; i < end; i++) {
+				c ^= bytes[i];
+				c = (c >>> 4) ^ table[c & 15];
+				c = (c >>> 4) ^ table[c & 15];
+			}
+			c = ~c;
+			bytes[end++] = c >>> 24;
+			bytes[end++] = (c >> 16) & 255;
+			bytes[end++] = (c >> 8) & 255;
+			bytes[end++] = c & 255;
+		}
+		return "data:image/png;base64," + btoa(String.fromCharCode(...bytes));
+	}
+
+	function loadPlaceholders() {
+		const images = document.querySelectorAll("img[data-placeholder-hash]");
+
+		images.forEach((img) => {
+			const hashBase64 = img.dataset.placeholderHash;
+			const original = img.dataset.src;
+
+			const binary = atob(hashBase64);
+			const hash = new Uint8Array(binary.length);
+			for (let i = 0; i < binary.length; i++) hash[i] = binary.charCodeAt(i);
+
+			img.classList.remove("loaded");
+			img.src = thumbHashToDataURL(hash);
+
+			const fullImage = new Image();
+			fullImage.src = original;
+			fullImage.onload = () => {
+				img.src = original;
+				img.classList.add("loaded");
+			};
+		});
+	}
+
+	document.addEventListener("astro:page-load", loadPlaceholders);
+</script>
