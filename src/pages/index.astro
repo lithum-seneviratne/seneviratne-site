@@ -22,14 +22,8 @@ if (referer) {
 
 ---
 
-<Layout pageTitle={pageTitle} hideHeader={cameFromOutside} hideFooter={cameFromOutside}>
-	<main
-		class:list={[
-			'flex min-h-screen grow flex-col justify-center items-center text-ink-dim',
-			// main pulls itself up since header's flow-height doesn't collapse when translated off-screen
-			{ '-mt-22.5': cameFromOutside },
-		]}
-	>
+<Layout pageTitle={pageTitle} hideHeader={cameFromOutside} hideFooter={cameFromOutside} snapPage>
+	<main class="flex min-h-screen grow flex-col justify-center items-center text-ink-dim">
 		<section class="relative h-screen w-full overflow-hidden bg-void">
 
 			<img
@@ -120,122 +114,56 @@ if (referer) {
 </style>
 
 <script>
-	let currentIndex = 0;
-	let isNavigating = false;
-	let lastGestureInputAt = 0;
-	let hasRevealed = false;
-	const GESTURE_QUIET_GAP_MS = 250;
-
-	// footer isn't a <section>, tack it on as the last stop
-	function getNavTargets(): HTMLElement[] {
-		const sections = [...document.querySelectorAll<HTMLElement>('main > section')];
-		const footer = document.getElementById('site-footer');
-		return footer ? [...sections, footer] : sections;
-	}
-
-	// fixed timeout, not scrollend - scrollend fires mid-flight and lets a second jump queue up
-	function lockDuringNavigation() {
-		isNavigating = true;
-		setTimeout(() => {
-			isNavigating = false;
-		}, 700);
-	}
-
-	function goToIndex(index: number) {
-		const targets = getNavTargets();
-		const clamped = Math.max(0, Math.min(targets.length - 1, index));
-		if (clamped === currentIndex) return;
-
-		lockDuringNavigation();
-		currentIndex = clamped;
-		targets[clamped]?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
-	}
-
+	// section snapping is native CSS (html.snap-page in global.css) - this just handles
+	// the one-time reveal from the hero-only cold start
 	function revealSiteChrome() {
-		hasRevealed = true;
-
 		document.getElementById('site-footer')?.removeAttribute('hidden');
 		document.querySelectorAll('[data-reveal-content]').forEach((element) => {
 			element.removeAttribute('hidden');
 		});
-
-		lockDuringNavigation();
-		currentIndex = 1;
-		document.getElementById('project-cards')?.scrollIntoView({
-			behavior: 'smooth',
-			block: 'start',
-			inline: 'nearest'
-		})
 	}
 
-	function handleAdvance(direction: 1 | -1) {
-		// quiet-gap so the tail of one swipe doesn't get read as a second gesture
-		const now = performance.now();
-		const gapSinceLastInput = now - lastGestureInputAt;
-		lastGestureInputAt = now;
-
-		if (isNavigating || gapSinceLastInput < GESTURE_QUIET_GAP_MS) return;
-
-		if (direction > 0 && !hasRevealed) {
-			revealSiteChrome();
-			return;
-		}
-
-		goToIndex(currentIndex + direction);
-	}
-
-	function onWheel(event: WheelEvent) {
-		// non-passive so preventDefault actually stops native scroll fighting our own scrollIntoView
-		event.preventDefault();
+	function onFirstWheel(event: WheelEvent) {
 		if (event.deltaY > 0) {
-			handleAdvance(1);
-		} else if (event.deltaY < 0) {
-			handleAdvance(-1);
+			revealSiteChrome();
+			teardownReveal();
 		}
 	}
 
 	let touchStartY = 0;
 
-	function onTouchStart(event: TouchEvent) {
+	function onFirstTouchStart(event: TouchEvent) {
 		touchStartY = event.touches[0].clientY;
 	}
 
-	function onTouchMove(event: TouchEvent) {
-		event.preventDefault();
-		const touchEndY = event.touches[0].clientY;
-
-		// Swipe Up -> Scroll Down
-		if (touchStartY > touchEndY + 5) {
-			handleAdvance(1);
-		} else if (touchStartY < touchEndY - 5) {
-			handleAdvance(-1);
+	function onFirstTouchMove(event: TouchEvent) {
+		if (touchStartY - event.touches[0].clientY > 5) {
+			revealSiteChrome();
+			teardownReveal();
 		}
 	}
 
-	function initScrollController() {
-		currentIndex = 0;
-		isNavigating = false;
-		lastGestureInputAt = 0;
+	function initReveal() {
 		// already unhidden means it was server-rendered with chrome visible, nothing to reveal
-		hasRevealed = !document.getElementById('site-footer')?.hasAttribute('hidden');
-		window.addEventListener('wheel', onWheel, { passive: false });
-		window.addEventListener('touchstart', onTouchStart, { passive: true });
-		window.addEventListener('touchmove', onTouchMove, { passive: false });
+		if (!document.getElementById('site-footer')?.hasAttribute('hidden')) return;
+		window.addEventListener('wheel', onFirstWheel, { passive: true });
+		window.addEventListener('touchstart', onFirstTouchStart, { passive: true });
+		window.addEventListener('touchmove', onFirstTouchMove, { passive: true });
 	}
 
-	function teardownScrollController() {
-		window.removeEventListener('wheel', onWheel);
-		window.removeEventListener('touchstart', onTouchStart);
-		window.removeEventListener('touchmove', onTouchMove);
+	function teardownReveal() {
+		window.removeEventListener('wheel', onFirstWheel);
+		window.removeEventListener('touchstart', onFirstTouchStart);
+		window.removeEventListener('touchmove', onFirstTouchMove);
 	}
 
 	// fires on every route, not just this one - hence the pathname check
 	document.addEventListener('astro:page-load', () => {
 		if (location.pathname === '/') {
-			initScrollController();
+			initReveal();
 		}
 	});
-	document.addEventListener('astro:before-swap', teardownScrollController);
+	document.addEventListener('astro:before-swap', teardownReveal);
 </script>
 
 <script is:inline>
