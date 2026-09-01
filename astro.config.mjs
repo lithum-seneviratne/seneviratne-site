@@ -3,20 +3,13 @@ import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 
-import netlify from '@astrojs/netlify';
+import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()]
   },
-
-  adapter: netlify({
-    edgeMiddleware: false,
-    devFeatures: {
-      images: true,
-      environmentVariables: false,
-      edgeFunctions: false
-    }
-  })
+  output: 'server',
+  adapter: node({ mode: 'standalone' }),
 });
