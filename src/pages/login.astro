@@ -9,10 +9,22 @@ const pageTitle = "Login";
         <form method="POST" action="/api/login" class="loginForm flex flex-col items-center gap-2 p-6 rounded-3xl overflow-hidden">
             <h1 class="text-4xl text-ink py-2">Login</h1>
             <br>
-            <input type="password" name="password" required autofocus class="mt-4 ml-2 inline-block rounded-md border border-edge-strong px-4 py-2 text-sm hover:border-lamp focus:outline-none focus:border-lamp-hover"/>
+            <div class="sr-only">
+                <label for="username">Username</label>
+                
+            </div>
+            <input 
+                type="password" 
+                name="password" 
+                id="password" 
+                autocomplete="current-password"
+                required 
+                autofocus 
+                class="mt-4 ml-2 inline-block rounded-md border border-edge-strong px-4 py-2 text-sm hover:border-lamp focus:outline-none focus:border-lamp-hover"
+            />
+            <!-- <input type="password" name="password" id="password" required autofocus class="mt-4 ml-2 inline-block rounded-md border border-edge-strong px-4 py-2 text-sm hover:border-lamp focus:outline-none focus:border-lamp-hover"/> -->
             <br>
-            <button type="submit" class="mt-4 ml-2 inline-block rounded-md border border-edge-strong
-            px-4 py-2 text-sm hover:border-lamp hover:text-void hover:bg-lamp focus:outline-2 outline-offset-2 focus:outline-lamp-hover focus:bg-lamp-hover">Submit</button>
+            <button type="submit" class="bg-panel text-ink-dim border border-ink-dim mt-5 w-fit rounded-md px-4 py-2 text-md font-mono cursor-pointer shadow-md transition-transform hover:scale-105 hover:bg-lamp-hover hover:border-void hover:text-void">Submit</button>
         </form>
     </main>
 </Layout>
